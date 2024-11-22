@@ -1,9 +1,6 @@
 import java.util.concurrent.Semaphore;
 
-class Cliente implements Runnable {
-
-    private String nombre;
-    private String[] carrito;
+public class Cliente implements Runnable {
     private long tiempoInicial;
     private Semaphore semaforo;
 
@@ -18,7 +15,7 @@ class Cliente implements Runnable {
     public void run() {
         try {
             semaforo.acquire();
-            int numeroCaja = obtenerCaja();
+            int numeroCaja = obtenerNumeroCaja();
             System.out.println(nombre + " comienza a ser atendido en la caja " + numeroCaja + " al tiempo: "
                     + (System.currentTimeMillis() - this.tiempoInicial) + " ms");
 
@@ -46,7 +43,10 @@ class Cliente implements Runnable {
         }
     }
 
-    private int obtenerCaja() {
+    private int obtenerNumeroCaja() {
         return 3 - semaforo.availablePermits();
     }
+
+    private String nombre;
+    private String[] carrito;
 }
